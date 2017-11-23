@@ -12,7 +12,7 @@ namespace ProtocolsToPivotTable {
 				IndentChars = "  "
 			};
 
-			using(System.Xml.XmlWriter writer = System.Xml.XmlWriter.Create("test.xml", xmlWriterSettings)) {
+			using(System.Xml.XmlWriter writer = System.Xml.XmlWriter.Create(itemProtocol.SheetName + ".xml", xmlWriterSettings)) {
 				writer.WriteStartDocument();
 				writer.WriteStartElement("WorkPlace");
 
@@ -38,7 +38,7 @@ namespace ProtocolsToPivotTable {
 						writer.WriteStartElement("Prm" + itemParameter.CodeParams.ToString());
 
 						writer.WriteAttributeString("CODEPARAMS", itemParameter.CodeParams.ToString());
-						writer.WriteAttributeString("NAMEPARAMS", itemParameter.ParameterName + "_");
+						writer.WriteAttributeString("NAMEPARAMS", itemParameter.ParameterName + itemProtocol.Postfix);
 						writer.WriteAttributeString("TYPEPARAMS", "6");
 						writer.WriteAttributeString("REFTODICT", itemParameter.ReftToDict.ToString());
 						writer.WriteAttributeString("COMMENT", "");
@@ -61,7 +61,7 @@ namespace ProtocolsToPivotTable {
 						writer.WriteStartElement("Ref" + itemParameter.ReftToDict.ToString());
 
 						writer.WriteAttributeString("REFID", itemParameter.ReftToDict.ToString());
-						writer.WriteAttributeString("REFNAME", itemParameter.ParameterName);
+						writer.WriteAttributeString("REFNAME", itemParameter.ParameterName + itemProtocol.Postfix);
 
 						int order = 0;
 						foreach (ItemDictionary itemDictionary in itemParameter.Dictionary) {

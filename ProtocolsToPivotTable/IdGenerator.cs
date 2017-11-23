@@ -17,7 +17,7 @@ namespace ProtocolsToPivotTable {
 		}
 
 		public IdGenerator() {
-			id = 660000000;
+			id = 770000000;
 		}
 	}
 }

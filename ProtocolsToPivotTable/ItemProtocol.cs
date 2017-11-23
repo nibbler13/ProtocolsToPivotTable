@@ -9,11 +9,14 @@ namespace ProtocolsToPivotTable {
 		public string ProtocolName { get; set; }
 		public List<ItemGroup> ListOfItemGroup { get; set; }
 		public int PlaceId { get; set; }
+		public string SheetName { get; set; }
+		public string Postfix { get; set; }
 
 		public ItemProtocol() {
 			ProtocolName = "";
 			ListOfItemGroup = new List<ItemGroup>();
 			PlaceId = 0;
+			SheetName = "";
 		}
 	}
 }

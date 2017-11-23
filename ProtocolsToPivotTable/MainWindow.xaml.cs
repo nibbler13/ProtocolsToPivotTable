@@ -48,8 +48,10 @@ namespace ProtocolsToPivotTable {
 			buttonDoIt.IsEnabled = false;
 
 			await Task.Run(() => {
-				ItemProtocol itemProtocol = ExcelReader.ReadProtocol(fileName);
-				XmlWriter.WriteToXml(itemProtocol);
+				List<ItemProtocol> protocols = ExcelReader.ReadProtocols(fileName);
+
+				foreach (ItemProtocol itemProtocol in protocols)
+					XmlWriter.WriteToXml(itemProtocol);
 			});
 
 			buttonDoIt.IsEnabled = true;
