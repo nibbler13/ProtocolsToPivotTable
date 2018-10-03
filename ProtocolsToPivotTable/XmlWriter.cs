@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace ProtocolsToPivotTable {
 	class XmlWriter {
-		public static void WriteToXml(ItemProtocol itemProtocol) {
+		public static void WriteToXml(ItemProtocol itemProtocol, string path) {
 			System.Xml.XmlWriterSettings xmlWriterSettings = new System.Xml.XmlWriterSettings() {
 				Indent = true,
 				IndentChars = "  "
 			};
 
-			using(System.Xml.XmlWriter writer = System.Xml.XmlWriter.Create(itemProtocol.SheetName + ".xml", xmlWriterSettings)) {
+			using(System.Xml.XmlWriter writer = System.Xml.XmlWriter.Create(path + itemProtocol.SheetName + ".xml", xmlWriterSettings)) {
 				writer.WriteStartDocument();
 				writer.WriteStartElement("WorkPlace");
 
 				writer.WriteAttributeString("PLACEID", itemProtocol.PlaceId.ToString());
-				writer.WriteAttributeString("NAMEPLACE", itemProtocol.ProtocolName);
+				writer.WriteAttributeString("NAMEPLACE", itemProtocol.Postfix + " " + itemProtocol.ProtocolName);
 				writer.WriteAttributeString("F25_NAMEPLACE", "Протокол телемедицинской консультации");
 				writer.WriteAttributeString("PARENTPLACEID", "-1");
 				writer.WriteAttributeString("PLACETYPE", "0");

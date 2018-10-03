@@ -1,23 +1,10 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.OleDb;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using NPOI.SS.UserModel;
-using NPOI.XSSF.UserModel;
 using System.Diagnostics;
 
 namespace ProtocolsToPivotTable {
@@ -47,17 +34,23 @@ namespace ProtocolsToPivotTable {
 			Cursor = Cursors.Wait;
 			buttonDoIt.IsEnabled = false;
 
+			string path = Directory.GetCurrentDirectory() + "\\Results_" + DateTime.Now.ToString("yyyyMMddHHmmss") + "\\";
+			if (!Directory.Exists(path))
+				Directory.CreateDirectory(path);
+
 			await Task.Run(() => {
 				List<ItemProtocol> protocols = ExcelReader.ReadProtocols(fileName);
 
 				foreach (ItemProtocol itemProtocol in protocols)
-					XmlWriter.WriteToXml(itemProtocol);
+					XmlWriter.WriteToXml(itemProtocol, path);
 			});
 
 			buttonDoIt.IsEnabled = true;
 			Cursor = Cursors.Arrow;
 
 			MessageBox.Show("Завершено");
+
+			Process.Start(path);
 		}
 	}
 }
